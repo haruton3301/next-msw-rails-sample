@@ -4,5 +4,5 @@
 ## Development
 - frontend
     - http://localhost:8080
-- server
+- api
     - http://localhost:3000
