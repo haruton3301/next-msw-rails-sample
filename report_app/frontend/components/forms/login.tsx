@@ -41,6 +41,7 @@ export default function LoginForm() {
       } else {
         toast.success(messages.loginSuccessfulMessage)
         router.push("/")
+        router.refresh()
       }
     } catch {
       setIsSubmitting(false)

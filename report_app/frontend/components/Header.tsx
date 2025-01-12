@@ -22,6 +22,7 @@ export default function Header() {
       await signOut({ redirect: false })
       toast.success(messages.logoutSuccessfulMessage)
       router.push("login")
+      router.refresh()
     } catch {
       toast.error(messages.commonMessage)
     }

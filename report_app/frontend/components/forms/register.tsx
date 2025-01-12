@@ -46,6 +46,7 @@ export default function RegisterForm() {
       } else {
         toast.success(messages.registerSuccessfulMessage)
         router.push("/")
+        router.refresh()
       }
     } catch (error) {
       setIsSubmitting(false)
