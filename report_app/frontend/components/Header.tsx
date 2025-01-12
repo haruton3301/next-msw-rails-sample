@@ -4,6 +4,7 @@ import messages from "@/lib/constants/messages"
 import { CommonError } from "@/lib/errors/base"
 import { authService } from "@/lib/services"
 import { signOut, useSession } from "next-auth/react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
 
@@ -30,21 +31,23 @@ export default function Header() {
     <header className="sticky top-0 left-0 w-full p-3">
       <div className="navbar bg-base-100 rounded-lg">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">日報アプリ</a>
+          <Link href="/" className="btn btn-ghost text-xl">
+            日報アプリ
+          </Link>
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1 flex items-center gap-3">
             {!session ? (
               <>
                 <li>
-                  <a href="/register" className="btn">
+                  <Link href="/register" className="btn">
                     ユーザー登録
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/login" className="btn">
+                  <Link href="/login" className="btn">
                     ログイン
-                  </a>
+                  </Link>
                 </li>
               </>
             ) : (
