@@ -1,3 +1,4 @@
+import { Session } from "next-auth"
 import { AuthHeaders, User } from "../types/auth"
 
 export async function extractUser(response: Response): Promise<User> {
@@ -31,5 +32,15 @@ export function extractAuthHeaders(response: Response): AuthHeaders {
     client,
     expiry,
     uid,
+  }
+}
+
+export function sessionToAuthHeaders(session: Session) {
+  const { user } = session
+
+  return {
+    "access-token": user.accessToken,
+    client: user.client,
+    uid: user.uid,
   }
 }

@@ -1,7 +1,12 @@
+import { Session } from "next-auth"
 import { EmailAlreadyTakenError, InvalidCredentialsError } from "../errors/auth"
 import { CommonError } from "../errors/base"
 import { AuthHeaders, SignInParams, SignUpParams, User } from "../types/auth"
-import { extractAuthHeaders, extractUser } from "../utils/auth"
+import {
+  extractAuthHeaders,
+  extractUser,
+  sessionToAuthHeaders,
+} from "../utils/auth"
 import ApiClient from "./apiClient"
 
 class AuthService {
@@ -47,6 +52,19 @@ class AuthService {
       const user = await extractUser(response)
 
       return { authHeaders, user }
+    } catch {
+      throw new CommonError()
+    }
+  }
+
+  public async signOut(session: Session): Promise<void> {
+    try {
+      const headers = sessionToAuthHeaders(session)
+      const response = await this.apiClient.delete("/v1/auth/sign_out", headers)
+
+      if (!response.ok) {
+        throw new CommonError()
+      }
     } catch {
       throw new CommonError()
     }
