@@ -45,7 +45,6 @@ class AuthService {
     try {
       const authHeaders = extractAuthHeaders(response)
       const user = await extractUser(response)
-      console.log(11)
 
       return { authHeaders, user }
     } catch {
