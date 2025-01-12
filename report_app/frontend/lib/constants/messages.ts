@@ -8,6 +8,7 @@ const messages = {
   passwordMinimumSizeMessage: "パスワードは6文字以上である必要があります",
   loginSuccessfulMessage: "ログインしました",
   logoutSuccessfulMessage: "ログアウトしました",
+  reportNotFoundMessage: "日報が存在しません",
 }
 
 export default messages
