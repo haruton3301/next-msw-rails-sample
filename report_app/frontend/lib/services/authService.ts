@@ -21,8 +21,6 @@ class AuthService {
     if (!response.ok) {
       const error = await response.json()
 
-      console.log(error.errors.email[0])
-
       if (error.errors.email[0] === "has already been taken") {
         throw new EmailAlreadyTakenError()
       } else {
@@ -34,7 +32,6 @@ class AuthService {
   public async signIn(
     params: SignInParams,
   ): Promise<{ authHeaders: AuthHeaders; user: User }> {
-    console.log(10)
     const response = await this.apiClient.post("/v1/auth/sign_in", params)
     if (!response.ok) {
       const error = await response.json()
