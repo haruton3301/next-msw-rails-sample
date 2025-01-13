@@ -1,4 +1,4 @@
-# Report App
+# next-msw-rails-sample
 
 学習用の日報アプリ
 
