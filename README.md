@@ -18,7 +18,7 @@ cd ../api && bundle install
 
 ### Frontend
 
-- Next App Router
+- Next15
 - NextAuth
 - Tailwind, daisyUI
 - Mock Service Worker
