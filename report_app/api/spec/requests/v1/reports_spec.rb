@@ -67,7 +67,7 @@ RSpec.describe "V1::Reports", type: :request do
     end
   end
 
-  describe "PATH /update" do
+  describe "PATCH /update" do
     subject { patch v1_report_path(report_id), params: attributes, headers: auth_headers }
 
     let(:report_id) { existing_report.id }

@@ -2,7 +2,7 @@ import { z } from "zod"
 import messages from "../constants/messages"
 
 export const registerSchema = z.object({
-  name: z.string().min(1, { message: messages.requiredMessage }),
+  name: z.string().nonempty({ message: messages.requiredMessage }),
   email: z.string().email({ message: messages.emailInvalidFormtMessage }),
   password: z.string().min(6, { message: messages.passwordMinimumSizeMessage }),
 })

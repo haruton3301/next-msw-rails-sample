@@ -1,6 +1,6 @@
 # Report App
 
-日誌アプリ
+学習用の日報アプリ
 
 ## Setup
 
@@ -25,4 +25,5 @@ cd ../api && bundle install
 ### Backend
 
 - rails
+- rspec
 - devise-token-auth

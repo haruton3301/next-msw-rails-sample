@@ -9,6 +9,10 @@ const messages = {
   loginSuccessfulMessage: "ログインしました",
   logoutSuccessfulMessage: "ログアウトしました",
   reportNotFoundMessage: "日報が存在しません",
+  reportCreatedMessage: "日報を作成しました",
+  reportUpdatedMessage: "日報を更新しました",
+  reportDeletedMessage: "日報を削除しました",
+  reportNotExistMessage: "日報がありません",
 }
 
 export default messages

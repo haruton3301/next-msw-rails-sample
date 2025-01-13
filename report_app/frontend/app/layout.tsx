@@ -30,7 +30,7 @@ export default async function RootLayout({
       <body className={clsx(notoSansJP.variable, "font-sans bg-slate-100")}>
         <NextAuthProvider session={session}>
           <Header />
-          <main className="px-4 py-6">{children}</main>
+          <main className="px-4 pb-6">{children}</main>
           <ToastContainer
             position="bottom-right"
             autoClose={5000}

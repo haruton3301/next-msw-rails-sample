@@ -11,11 +11,12 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import FormCard from "./common/Card"
-import TextInput from "./common/Input"
-import FormLabel from "./common/Label"
-import SubmitButton from "./common/SubmitButton"
-import FormTitle from "./common/Title"
+
+import Card from "@/components/common/Card"
+import TextInput from "../common/Input"
+import FormLabel from "../common/Label"
+import SubmitButton from "../common/SubmitButton"
+import FormTitle from "../common/Title"
 
 export default function RegisterForm() {
   const router = useRouter()
@@ -62,7 +63,7 @@ export default function RegisterForm() {
   }
 
   return (
-    <FormCard>
+    <Card className="max-w-sm">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-2.5">
         <FormTitle>ユーザー登録</FormTitle>
 
@@ -97,6 +98,6 @@ export default function RegisterForm() {
           <SubmitButton disabled={isSubmitting}>登録</SubmitButton>
         </div>
       </form>
-    </FormCard>
+    </Card>
   )
 }

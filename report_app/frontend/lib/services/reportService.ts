@@ -1,7 +1,7 @@
 import { Session } from "next-auth"
 import { CommonError } from "../errors/base"
 import { ReportNotFoundError } from "../errors/report"
-import { ReportParams } from "../types/report"
+import { Report, ReportParams } from "../types/report"
 import { sessionToAuthHeaders } from "../utils/auth"
 import ApiClient from "./apiClient"
 
@@ -55,7 +55,7 @@ class ReportService {
   public async createReport(
     session: Session,
     params: ReportParams,
-  ): Promise<void> {
+  ): Promise<Report> {
     try {
       const headers = sessionToAuthHeaders(session)
       const response = await this.apiClient.post("/v1/reports", params, headers)
@@ -63,6 +63,37 @@ class ReportService {
       if (!response.ok) {
         throw new CommonError()
       }
+
+      const createdReport: Report = await response.json()
+      return createdReport
+    } catch {
+      throw new CommonError()
+    }
+  }
+
+  public async updateReport(
+    session: Session,
+    reportId: string,
+    params: ReportParams,
+  ): Promise<Report> {
+    try {
+      const headers = sessionToAuthHeaders(session)
+      const response = await this.apiClient.patch(
+        `/v1/reports/${reportId}`,
+        params,
+        headers,
+      )
+
+      if (response.status === 404) {
+        throw new ReportNotFoundError()
+      }
+
+      if (!response.ok) {
+        throw new CommonError()
+      }
+
+      const updatedReport: Report = await response.json()
+      return updatedReport
     } catch {
       throw new CommonError()
     }

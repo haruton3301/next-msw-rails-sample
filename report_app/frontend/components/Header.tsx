@@ -1,32 +1,13 @@
 "use client"
 
-import messages from "@/lib/constants/messages"
-import { CommonError } from "@/lib/errors/base"
-import { authService } from "@/lib/services"
-import { signOut, useSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { toast } from "react-toastify"
+import LogoutButton from "./buttons/logout"
 
 export default function Header() {
   const { data: session } = useSession()
-  const router = useRouter()
-
-  const handleSignOut = async () => {
-    try {
-      if (!session) {
-        throw new CommonError()
-      }
-
-      await authService.signOut(session)
-      await signOut({ redirect: false })
-      toast.success(messages.logoutSuccessfulMessage)
-      router.push("login")
-      router.refresh()
-    } catch {
-      toast.error(messages.commonMessage)
-    }
-  }
+  const isLoggedIn = !!session
+  const name = session?.user.name || ""
 
   return (
     <header className="sticky top-0 left-0 w-full p-3">
@@ -38,7 +19,7 @@ export default function Header() {
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1 flex items-center gap-3">
-            {!session ? (
+            {!isLoggedIn ? (
               <>
                 <li>
                   <Link href="/register" className="btn">
@@ -53,11 +34,9 @@ export default function Header() {
               </>
             ) : (
               <>
-                <li className="font-bold text-lg">{session.user?.name}</li>
+                <li className="font-bold text-lg">{name}</li>
                 <li>
-                  <a onClick={handleSignOut} className="btn">
-                    ログアウト
-                  </a>
+                  <LogoutButton />
                 </li>
               </>
             )}

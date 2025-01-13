@@ -3,7 +3,7 @@ class V1::ReportsController < ApplicationController
   before_action :set_report, only: [ :show, :update, :destroy ]
 
   def index
-    reports = current_v1_user.reports
+    reports = current_v1_user.reports.order(reported_at: :desc)
     render json: reports
   end
 
