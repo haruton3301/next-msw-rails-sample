@@ -13,7 +13,7 @@ export async function middleware(req: NextRequest) {
     path.startsWith("/_next") || // Next.jsのビルドファイル
     path.startsWith("/api") || // APIリクエスト
     path.startsWith("/favicon.ico") || // Favicon
-    path.startsWith("/public") // publicディレクトリ内のファイル
+    path.startsWith("/mockServiceWorker.js") // MSW
   ) {
     return NextResponse.next()
   }

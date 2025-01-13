@@ -1,4 +1,5 @@
 import Header from "@/components/Header"
+import MswLoader from "@/components/MswLoader"
 import { NextAuthProvider } from "@/components/providers/NextAuthProvider"
 import { authOptions } from "@/lib/auth_options"
 import clsx from "clsx"
@@ -28,6 +29,7 @@ export default async function RootLayout({
   return (
     <html lang="ja">
       <body className={clsx(notoSansJP.variable, "font-sans bg-slate-100")}>
+        <MswLoader />
         <NextAuthProvider session={session}>
           <Header />
           <main className="px-4 pb-6">{children}</main>

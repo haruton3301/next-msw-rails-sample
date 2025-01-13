@@ -3,23 +3,22 @@ import Card from "@/components/common/Card"
 import ReportTable from "@/components/tables/report"
 import { authOptions } from "@/lib/auth_options"
 import messages from "@/lib/constants/messages"
+import { CommonError } from "@/lib/errors/base"
 import { reportService } from "@/lib/services"
 import { Report } from "@/lib/types/report"
 import { getServerSession } from "next-auth"
-import { notFound } from "next/navigation"
-import { toast } from "react-toastify"
 
 export default async function IndexPage() {
   const session = await getServerSession(authOptions)
   if (!session) {
-    notFound()
+    throw CommonError
   }
 
   let reports: Array<Report> = []
   try {
     reports = await reportService.getReports(session)
   } catch {
-    toast.error(messages.commonMessage)
+    throw CommonError
   }
 
   return (
