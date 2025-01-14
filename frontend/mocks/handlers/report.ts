@@ -20,10 +20,12 @@ export const createReportHandlers = (
       }
 
       const newReport = {
-        id: mockReports.length.toString(),
-        reported_at: reported_at,
-        content: content,
+        id: (mockReports.length + 1).toString(),
+        content,
+        reported_at,
       }
+
+      mockReports.push(newReport)
 
       return HttpResponse.json(newReport, { status: 201 })
     }),
@@ -47,27 +49,43 @@ export const createReportHandlers = (
       )
     }),
 
-    http.patch(`${mockEndPoint}/v1/reports/:reportId`, async ({ params }) => {
-      const { reportId } = params
+    http.patch(
+      `${mockEndPoint}/v1/reports/:reportId`,
+      async ({ params, request }) => {
+        const { reportId } = params
+        const body = await request.json()
+        const { content, reported_at } = body as {
+          content: string
+          reported_at: string
+        }
 
-      const report = mockReports.find((r) => r.id === reportId)
+        const reportIndex = mockReports.findIndex((r) => r.id === reportId)
 
-      if (report) {
-        return HttpResponse.json(report, { status: 200 })
-      }
+        if (reportIndex !== -1) {
+          mockReports[reportIndex] = {
+            ...mockReports[reportIndex],
+            content: content ?? mockReports[reportIndex].content,
+            reported_at: reported_at ?? mockReports[reportIndex].reported_at,
+          }
 
-      return HttpResponse.json(
-        { errors: ["Report not found"] },
-        { status: 404 },
-      )
-    }),
+          return HttpResponse.json(mockReports[reportIndex], { status: 200 })
+        }
+
+        return HttpResponse.json(
+          { errors: ["Report not found"] },
+          { status: 404 },
+        )
+      },
+    ),
 
     http.delete(`${mockEndPoint}/v1/reports/:reportId`, async ({ params }) => {
       const { reportId } = params
 
-      const report = mockReports.find((r) => r.id === reportId)
+      const reportIndex = mockReports.findIndex((r) => r.id === reportId)
 
-      if (report) {
+      if (reportIndex !== -1) {
+        mockReports.splice(reportIndex, 1)
+
         return HttpResponse.text(null, { status: 204 })
       }
 

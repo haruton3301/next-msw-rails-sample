@@ -1,5 +1,5 @@
 import { http, HttpResponse, RequestHandler } from "msw"
-import { mockAuthHeaders, mockUser } from "../data/auth"
+import { mockAuthHeaders, mockPassword, mockUser } from "../data/auth"
 
 export const createAuthHandlers = (mockEndPoint: string): RequestHandler[] => {
   return [
@@ -21,7 +21,7 @@ export const createAuthHandlers = (mockEndPoint: string): RequestHandler[] => {
       const body = await request.json()
       const { email, password } = body as { email: string; password: string }
 
-      if (email === mockUser.email && password === "password") {
+      if (email === mockUser.email && password === mockPassword) {
         return HttpResponse.json(
           { data: { ...mockUser } },
           {

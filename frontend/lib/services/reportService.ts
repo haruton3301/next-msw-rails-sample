@@ -31,25 +31,21 @@ class ReportService {
     session: Session,
     reportId: string,
   ): Promise<Report> {
-    try {
-      const headers = sessionToAuthHeaders(session)
-      const response = await this.apiClient.get(
-        `/v1/reports/${reportId}`,
-        headers,
-      )
+    const headers = sessionToAuthHeaders(session)
+    const response = await this.apiClient.get(
+      `/v1/reports/${reportId}`,
+      headers,
+    )
 
-      if (response.status === 404) {
-        throw new ReportNotFoundError()
-      }
+    if (response.status === 404) {
+      throw new ReportNotFoundError()
+    }
 
-      if (!response.ok) {
-        throw new CommonError()
-      }
-
-      return await response.json()
-    } catch {
+    if (!response.ok) {
       throw new CommonError()
     }
+
+    return await response.json()
   }
 
   public async createReport(
@@ -76,27 +72,23 @@ class ReportService {
     reportId: string,
     params: ReportParams,
   ): Promise<Report> {
-    try {
-      const headers = sessionToAuthHeaders(session)
-      const response = await this.apiClient.patch(
-        `/v1/reports/${reportId}`,
-        params,
-        headers,
-      )
+    const headers = sessionToAuthHeaders(session)
+    const response = await this.apiClient.patch(
+      `/v1/reports/${reportId}`,
+      params,
+      headers,
+    )
 
-      if (response.status === 404) {
-        throw new ReportNotFoundError()
-      }
+    if (response.status === 404) {
+      throw new ReportNotFoundError()
+    }
 
-      if (!response.ok) {
-        throw new CommonError()
-      }
-
-      const updatedReport: Report = await response.json()
-      return updatedReport
-    } catch {
+    if (!response.ok) {
       throw new CommonError()
     }
+
+    const updatedReport: Report = await response.json()
+    return updatedReport
   }
 
   public async deleteReport(session: Session, reportId: string): Promise<void> {
