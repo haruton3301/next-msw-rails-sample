@@ -5,7 +5,7 @@
 ## Setup
 
 ```
-cd frontend && yarn
+cd frontend && yarn && yarn msw:init
 cd ../api && bundle install
 ```
 
