@@ -55,8 +55,9 @@ export default function LoginForm() {
         <FormTitle>ログイン</FormTitle>
 
         <div className="space-y-1">
-          <FormLabel>メールアドレス</FormLabel>
+          <FormLabel htmlFor="email">メールアドレス</FormLabel>
           <TextInput
+            id="email"
             type="email"
             error={errors.email?.message} // エラーメッセージを渡す
             {...register("email")}
@@ -64,8 +65,9 @@ export default function LoginForm() {
         </div>
 
         <div className="space-y-1">
-          <FormLabel>パスワード</FormLabel>
+          <FormLabel htmlFor="password">パスワード</FormLabel>
           <TextInput
+            id="password"
             type="password"
             error={errors.password?.message} // エラーメッセージを渡す
             {...register("password")}

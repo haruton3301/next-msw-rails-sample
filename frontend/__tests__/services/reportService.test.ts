@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 import { CommonError } from "@/lib/errors/base"
 import { ReportNotFoundError } from "@/lib/errors/report"
 import ReportService from "@/lib/services/reportService"

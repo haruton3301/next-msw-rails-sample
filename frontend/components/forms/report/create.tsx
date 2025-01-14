@@ -59,8 +59,9 @@ export default function CreateReportForm() {
         <FormTitle>日報の新規作成</FormTitle>
 
         <div className="space-y-1">
-          <FormLabel>日付</FormLabel>
+          <FormLabel htmlFor="date">日付</FormLabel>
           <TextInput
+            id="date"
             type="date"
             error={errors.reported_at?.message}
             {...register("reported_at")}
@@ -68,8 +69,9 @@ export default function CreateReportForm() {
         </div>
 
         <div className="space-y-1">
-          <FormLabel>内容</FormLabel>
+          <FormLabel htmlFor="content">内容</FormLabel>
           <TextArea
+            id="content"
             rows={5}
             error={errors.content?.message}
             {...register("content")}

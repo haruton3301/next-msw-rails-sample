@@ -68,8 +68,9 @@ export default function RegisterForm() {
         <FormTitle>ユーザー登録</FormTitle>
 
         <div className="space-y-1">
-          <FormLabel>ユーザー名</FormLabel>
+          <FormLabel htmlFor="name">ユーザー名</FormLabel>
           <TextInput
+            id="name"
             type="text"
             error={errors.name?.message}
             {...register("name")}
@@ -77,8 +78,9 @@ export default function RegisterForm() {
         </div>
 
         <div className="space-y-1">
-          <FormLabel>メールアドレス</FormLabel>
+          <FormLabel htmlFor="email">メールアドレス</FormLabel>
           <TextInput
+            id="email"
             type="email"
             error={errors.email?.message}
             {...register("email")}
@@ -86,8 +88,9 @@ export default function RegisterForm() {
         </div>
 
         <div className="space-y-1">
-          <FormLabel>パスワード</FormLabel>
+          <FormLabel htmlFor="password">パスワード</FormLabel>
           <TextInput
+            id="password"
             type="password"
             error={errors.password?.message}
             {...register("password")}

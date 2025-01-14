@@ -2,6 +2,7 @@ import clsx from "clsx"
 import { forwardRef } from "react"
 
 type TextInputProps = {
+  id: string
   type?: string
   placeholder?: string
   className?: string
@@ -10,12 +11,13 @@ type TextInputProps = {
 
 const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
   (
-    { type = "text", placeholder = "", className = "", error, ...rest },
+    { id, type = "text", placeholder = "", className = "", error, ...rest },
     ref,
   ) => {
     return (
       <div className="space-y-1">
         <input
+          id={id}
           ref={ref}
           type={type}
           placeholder={placeholder}

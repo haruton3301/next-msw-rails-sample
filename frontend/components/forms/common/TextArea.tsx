@@ -2,6 +2,7 @@ import clsx from "clsx"
 import { forwardRef } from "react"
 
 type TextAreaProps = {
+  id: string
   placeholder?: string
   className?: string
   error?: string
@@ -9,10 +10,11 @@ type TextAreaProps = {
 }
 
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ placeholder = "", className = "", error, rows = 3, ...rest }, ref) => {
+  ({ id, placeholder = "", className = "", error, rows = 3, ...rest }, ref) => {
     return (
       <div className="space-y-1">
         <textarea
+          id={id}
           ref={ref}
           placeholder={placeholder}
           rows={rows}

@@ -2,7 +2,7 @@ import type { Config } from "jest"
 
 const config: Config = {
   preset: "ts-jest",
-  testEnvironment: "node",
+  testEnvironment: "jest-fixed-jsdom",
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/$1",
@@ -15,6 +15,9 @@ const config: Config = {
         tsconfig: "./tsconfig.test.json",
       },
     ],
+  },
+  testEnvironmentOptions: {
+    customExportConditions: [""],
   },
 }
 

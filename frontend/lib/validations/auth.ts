@@ -3,13 +3,22 @@ import messages from "../constants/messages"
 
 export const registerSchema = z.object({
   name: z.string().nonempty({ message: messages.requiredMessage }),
-  email: z.string().email({ message: messages.emailInvalidFormtMessage }),
-  password: z.string().min(6, { message: messages.passwordMinimumSizeMessage }),
+  email: z
+    .string()
+    .nonempty({ message: messages.requiredMessage })
+    .email({ message: messages.emailInvalidFormtMessage }),
+  password: z
+    .string()
+    .nonempty({ message: messages.requiredMessage })
+    .min(6, { message: messages.passwordMinimumSizeMessage }),
 })
 
 export const loginSchema = z.object({
-  email: z.string().email("有効なメールアドレスを入力してください"),
-  password: z.string().min(6, "パスワードは6文字以上である必要があります"),
+  email: z
+    .string()
+    .nonempty({ message: messages.requiredMessage })
+    .email({ message: messages.emailInvalidFormtMessage }),
+  password: z.string().nonempty({ message: messages.requiredMessage }),
 })
 
 export type RegisterData = z.infer<typeof registerSchema>
