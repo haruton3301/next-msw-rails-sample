@@ -59,7 +59,7 @@ export default function LoginForm() {
           <TextInput
             id="email"
             type="email"
-            error={errors.email?.message} // エラーメッセージを渡す
+            error={errors.email?.message}
             {...register("email")}
           />
         </div>
@@ -69,7 +69,7 @@ export default function LoginForm() {
           <TextInput
             id="password"
             type="password"
-            error={errors.password?.message} // エラーメッセージを渡す
+            error={errors.password?.message}
             {...register("password")}
           />
         </div>
