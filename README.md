@@ -21,7 +21,7 @@ cd ../api && bundle install
 - Next15
 - NextAuth
 - Tailwind, daisyUI
-- Mock Service Worker
+- Mock Service Worker, Jest, React Testing Library
 
 ### Backend
 
