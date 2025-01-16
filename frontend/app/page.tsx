@@ -3,9 +3,10 @@ import Card from "@/components/common/Card"
 import ReportTable from "@/components/tables/report"
 import { authOptions } from "@/lib/auth_options"
 import messages from "@/lib/constants/messages"
-import { CommonError } from "@/lib/errors/base"
+import { BaseError, CommonError } from "@/lib/errors/base"
 import { reportService } from "@/lib/services"
 import { Report } from "@/lib/types/report"
+import { handleError } from "@/lib/utils/error"
 import { getServerSession } from "next-auth"
 
 export default async function IndexPage() {
@@ -17,7 +18,10 @@ export default async function IndexPage() {
   let reports: Array<Report> = []
   try {
     reports = await reportService.getReports(session)
-  } catch {
+  } catch (error) {
+    if (error instanceof BaseError) {
+      handleError(error)
+    }
     throw CommonError
   }
 

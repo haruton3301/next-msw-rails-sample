@@ -2,9 +2,10 @@ import BackButton from "@/components/buttons/back"
 import DeleteButton from "@/components/buttons/delete"
 import EditReportForm from "@/components/forms/report/edit"
 import { authOptions } from "@/lib/auth_options"
-import { CommonError } from "@/lib/errors/base"
+import { BaseError, CommonError } from "@/lib/errors/base"
 import { reportService } from "@/lib/services"
 import { Report } from "@/lib/types/report"
+import { handleError } from "@/lib/utils/error"
 import { getServerSession } from "next-auth"
 import { notFound } from "next/navigation"
 
@@ -25,7 +26,10 @@ export default async function EditReportPage({ params }: Props) {
   let report: Report
   try {
     report = await reportService.getReportDetails(session, id)
-  } catch {
+  } catch (error) {
+    if (error instanceof BaseError) {
+      handleError(error)
+    }
     notFound()
   }
 

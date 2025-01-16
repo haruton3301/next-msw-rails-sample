@@ -1,8 +1,9 @@
 "use client"
 
 import messages from "@/lib/constants/messages"
-import { CommonError } from "@/lib/errors/base"
+import { BaseError, CommonError } from "@/lib/errors/base"
 import { reportService } from "@/lib/services"
+import { handleError } from "@/lib/utils/error"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -29,7 +30,10 @@ export default function DeleteButton({ reportId }: DeleteButtonProps) {
       toast.success(messages.reportDeletedMessage)
       router.push("/")
       router.refresh()
-    } catch {
+    } catch (error) {
+      if (error instanceof BaseError) {
+        handleError(error)
+      }
       toast.error(messages.commonMessage)
     } finally {
       setIsModalOpen(false)

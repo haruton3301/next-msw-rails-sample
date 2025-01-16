@@ -2,7 +2,7 @@
 
 import messages from "@/lib/constants/messages"
 import { EmailAlreadyTakenError } from "@/lib/errors/auth"
-import { CommonError } from "@/lib/errors/base"
+import { BaseError, CommonError } from "@/lib/errors/base"
 import { authService } from "@/lib/services"
 import { RegisterData, registerSchema } from "@/lib/validations/auth"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -13,6 +13,7 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 
 import Card from "@/components/common/Card"
+import { handleError } from "@/lib/utils/error"
 import TextInput from "../common/Input"
 import FormLabel from "../common/Label"
 import SubmitButton from "../common/SubmitButton"
@@ -51,6 +52,10 @@ export default function RegisterForm() {
       }
     } catch (error) {
       setIsSubmitting(false)
+
+      if (error instanceof BaseError) {
+        handleError(error)
+      }
 
       if (error instanceof EmailAlreadyTakenError) {
         toast.error(error.message)

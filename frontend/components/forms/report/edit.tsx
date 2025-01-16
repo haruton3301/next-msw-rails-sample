@@ -2,8 +2,9 @@
 
 import Card from "@/components/common/Card"
 import messages from "@/lib/constants/messages"
-import { CommonError } from "@/lib/errors/base"
+import { BaseError, CommonError } from "@/lib/errors/base"
 import { reportService } from "@/lib/services"
+import { handleError } from "@/lib/utils/error"
 import { ReportData, reportSchema } from "@/lib/validations/report"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useSession } from "next-auth/react"
@@ -50,7 +51,10 @@ export default function EditReportForm({ report }: EditReportFormProps) {
       await reportService.updateReport(session, report.id, data)
 
       toast.success(messages.reportUpdatedMessage)
-    } catch {
+    } catch (error) {
+      if (error instanceof BaseError) {
+        handleError(error)
+      }
       toast.error(messages.commonMessage)
     } finally {
       setIsSubmitting(false)

@@ -2,9 +2,10 @@
 
 import Card from "@/components/common/Card"
 import messages from "@/lib/constants/messages"
-import { CommonError } from "@/lib/errors/base"
+import { BaseError, CommonError } from "@/lib/errors/base"
 import { reportService } from "@/lib/services"
 import { getTodayIsoString } from "@/lib/utils/date"
+import { handleError } from "@/lib/utils/error"
 import { ReportData, reportSchema } from "@/lib/validations/report"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useSession } from "next-auth/react"
@@ -46,7 +47,10 @@ export default function CreateReportForm() {
       toast.success(messages.reportCreatedMessage)
       router.push(`/reports/${createdReport.id}`)
       router.refresh()
-    } catch {
+    } catch (error) {
+      if (error instanceof BaseError) {
+        handleError(error)
+      }
       toast.error(messages.commonMessage)
     } finally {
       setIsSubmitting(false)

@@ -2,6 +2,8 @@
 
 import Card from "@/components/common/Card"
 import messages from "@/lib/constants/messages"
+import { BaseError } from "@/lib/errors/base"
+import { handleError } from "@/lib/utils/error"
 import { LoginData, loginSchema } from "@/lib/validations/auth"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { signIn } from "next-auth/react"
@@ -43,7 +45,10 @@ export default function LoginForm() {
         router.push("/")
         router.refresh()
       }
-    } catch {
+    } catch (error) {
+      if (error instanceof BaseError) {
+        handleError(error)
+      }
       setIsSubmitting(false)
       toast.error(messages.commonMessage)
     }
